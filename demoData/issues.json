@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "1",
+    "title": "Issue 1",
+    "description": "This is issue 1",
+    "status": "Open",
+    "createdAt": "2022-01-01T00:00:00Z",
+    "updatedAt": "2022-01-01T00:00:00Z",
+    "reporterId": "reporter1",
+    "assigneeId": "assignee1"
+  },
+  {
+    "_id": "2",
+    "title": "Issue 2",
+    "description": "This is issue 2",
+    "status": "Closed",
+    "createdAt": "2022-01-02T00:00:00Z",
+    "updatedAt": "2022-01-02T00:00:00Z",
+    "reporterId": "reporter2",
+    "assigneeId": "assignee2"
+  },
+  {
+    "_id": "3",
+    "title": "Issue 3",
+    "description": "This is issue 3",
+    "status": "Open",
+    "createdAt": "2022-01-03T00:00:00Z",
+    "updatedAt": "2022-01-03T00:00:00Z",
+    "reporterId": "reporter3",
+    "assigneeId": "assignee3"
+  },
+  {
+    "_id": "4",
+    "title": "Issue 4",
+    "description": "This is issue 4",
+    "status": "Closed",
+    "createdAt": "2022-01-04T00:00:00Z",
+    "updatedAt": "2022-01-04T00:00:00Z",
+    "reporterId": "reporter4",
+    "assigneeId": "assignee4"
+  },
+  {
+    "_id": "5",
+    "title": "Issue 5",
+    "description": "This is issue 5",
+    "status": "Open",
+    "createdAt": "2022-01-05T00:00:00Z",
+    "updatedAt": "2022-01-05T00:00:00Z",
+    "reporterId": "reporter5",
+    "assigneeId": "assignee5"
+  }
+]
