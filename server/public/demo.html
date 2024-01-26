@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Issue Management System</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">New Issue</a></li>
+                <li><a href="#">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Assigned To</th>
+                    <th>Last Updated</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="issueTableBody">
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/issues')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('issueTableBody');
+                    data.forEach(issue => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${issue._id || ''}</td>
+                            <td>${issue.title || ''}</td>
+                            <td>${issue.status || ''}</td>
+                            <td>${issue.description || ''}</td>
+                            <td>
+                                <a href="/edit.html?id=${issue._id || ''}" class="waves-effect waves-light btn-small">Edit</a>
+                                <a class="waves-effect waves-light btn-small red">Delete</a>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

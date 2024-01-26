@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Missing functionality in Home page",
+    "description": "The Home page is missing a feature to display all issues.",
+    "status": "Open"
+  },
+  {
+    "title": "Bug in Login page",
+    "description": "The Login page crashes when I try to log in with correct credentials.",
+    "status": "In Progress"
+  },
+  {
+    "title": "Missing functionality in Issues page",
+    "description": "The Issues page is missing a feature to update issues.",
+    "status": "Open"
+  }
+]
