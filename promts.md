@@ -23,7 +23,6 @@ Tell me how to start the server and run unit tests. The server should auto reloa
 provide server.md, database/x.md
 Implement the mongoose schema and interface for x.
 
-
 # Routes
 
 ## Comment
@@ -43,3 +42,19 @@ Provide server.md database/user.md database/comment.md database/issue.md
 Give me 3 JSON files with an array containing demo data files for users, issues and comments. Make realistic issues about a fictional government tax application web application. There should be 2 users, 3 issues with 0-3 comments each.
 
 Create a script scripts/seed-demo-data.ts that adds the demo data from test/demo-data to the database. Provide the lines to add to package.json to run this command.
+
+# Client
+
+## Sitemap in client.md
+provide client.md
+Create a sitemap of urls available in the browser. Add query-string parameters if applicable.
+Put this in a markdown document for reference
+
+## Template
+Create a blank plain template.html page that can be used as a starting point for pages like create-issue.html. It is styled using bulma. It includes a navbar. htmx loads the user menu. There is one placeholder where the main page content can be placed.
+
+please make the navbar stand out using a background color
+
+## New issue
+provide client.md issue.yml new-issue.md template.html
+create the new-issue.html page. it contains inline javascript for the client side logic and interacts with the server using /api.
