@@ -1,16 +1,7 @@
 import express from 'express';
 import { body, validationResult, query } from 'express-validator';
-import mongoose from 'mongoose';
-
+import { Comment } from '../models/comment'
 const router = express.Router();
-
-// Comment model
-const Comment = mongoose.model('Comment', new mongoose.Schema({
-  issueId: String,
-  text: String,
-  createdAt: { type: Date, default: Date.now },
-  createdBy: String
-}));
 
 // POST /api/comment
 router.post('/api/comment',
