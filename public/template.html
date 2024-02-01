@@ -4,35 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Page</title>
-    <!-- Include Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <!-- Include htmx -->
-    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+    <script src="https://unpkg.com/htmx.org@1.4.1"></script>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/index.html">
-                Home
-            </a>
-        </div>
-
-        <div class="navbar-menu">
-            <div class="navbar-end">
-                <!-- User Menu loaded by htmx -->
-                <div hx-get="/partials/user-menu.html" hx-trigger="load" class="navbar-item">
-                    <!-- User menu will be loaded here -->
-                </div>
-            </div>
-        </div>
+    <nav class="bg-blue-500 p-4">
+        <!-- Home Link -->
+        <a href="/index.html" class="text-white">Home</a>
+        <!-- User Menu -->
+        <div hx-get="/partials/user-menu.html" hx-trigger="load"></div>
     </nav>
 
-    <!-- Main Content -->
-    <section class="section">
-        <div class="container">
-            <!-- Main content goes here -->
-        </div>
-    </section>
+    <!-- Main Content Placeholder -->
+    <main class="p-4">
+        <!-- Main content goes here -->
+    </main>
 </body>
 </html>

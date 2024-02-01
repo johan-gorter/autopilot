@@ -51,10 +51,15 @@ Create a sitemap of urls available in the browser. Add query-string parameters i
 Put this in a markdown document for reference
 
 ## Template
-Create a blank plain template.html page that can be used as a starting point for pages like create-issue.html. It is styled using bulma. It includes a navbar. htmx loads the user menu. There is one placeholder where the main page content can be placed.
-
-please make the navbar stand out using a background color
+Create a blank plain template.html page that can be used as a starting point for pages like create-issue.html. 
+It is styled using tailwind css and includes htmx. 
+It includes a navbar in a contrast color with a home link. 
+htmx loads the user menu that is placed at the end of the navbar. 
+There is one placeholder where the main page content can be placed.
 
 ## New issue
 provide client.md issue.yml new-issue.md template.html
+
 create the new-issue.html page. it contains inline javascript for the client side logic and interacts with the server using /api.
+
+add more tailwind styling to the form and add validations

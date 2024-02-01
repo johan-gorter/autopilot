@@ -4,7 +4,7 @@ This is an issue management system where users can create new issues, comment on
 # Client
 Files served to the client are in the public/ folder. All page urls end with .html 
 
-We use static html files to create the frontend, styled using materialize css and use vanilla javascript to load the data. 
+We use static html files to create the frontend, styled using tailwind css and use vanilla javascript to load the data. 
 We also use htmx to split up the html into smaller components. This is done using the `hx-get` and `hx-trigger="load"` attribute.
 Common elements like the user-menu and footer can be found in the partials/ folder.
 All pages include a consistent header and footer.

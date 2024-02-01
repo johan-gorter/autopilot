@@ -4,87 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Issue</title>
-    <!-- Include Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <!-- Include htmx -->
-    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+    <script src="https://unpkg.com/htmx.org@1.4.1"></script>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/index.html">
-                Home
-            </a>
-        </div>
-
-        <div class="navbar-menu">
-            <div class="navbar-end">
-                <!-- User Menu loaded by htmx -->
-                <div hx-get="/partials/user-menu.html" hx-trigger="load" class="navbar-item">
-                    <!-- User menu will be loaded here -->
-                </div>
-            </div>
-        </div>
+    <nav class="bg-blue-500 p-4">
+        <!-- Home Link -->
+        <a href="/index.html" class="text-white">Home</a>
+        <!-- User Menu -->
+        <div hx-get="/partials/user-menu.html" hx-trigger="load"></div>
     </nav>
 
-    <!-- Main Content -->
-    <section class="section">
-        <div class="container">
-            <!-- New Issue Form -->
-            <form id="new-issue-form">
-                <div class="field">
-                    <label class="label">Title</label>
-                    <div class="control">
-                        <input class="input" type="text" id="issue-title" placeholder="Issue Title" required maxlength="100">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Description</label>
-                    <div class="control">
-                        <textarea class="textarea" id="issue-description" placeholder="Issue Description" required></textarea>
-                    </div>
-                </div>
-
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button type="submit" class="button is-link">Submit</button>
-                    </div>
-                    <div class="control">
-                        <button type="button" class="button is-link is-light" onclick="window.history.back();">Cancel</button>
-                    </div>
-                </div>
-            </form>
+<!-- Main Content -->
+<main class="p-4">
+    <form id="newIssueForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                Title:
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Title" required maxlength="100">
         </div>
-    </section>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                Description:
+            </label>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" placeholder="Description" required></textarea>
+        </div>
+        <div class="flex items-center justify-between">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="submitIssue()">
+                Submit
+            </button>
+            <button class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" type="button" onclick="window.location.href='/issues.html'">
+                Cancel
+            </button>
+        </div>
+    </form>
+</main>
 
-    <script>
-        document.getElementById('new-issue-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+<script>
+    function submitIssue() {
+        const form = document.getElementById('newIssueForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
 
-            var title = document.getElementById('issue-title').value;
-            var description = document.getElementById('issue-description').value;
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
 
-            fetch('/api/issue', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title: title,
-                    description: description,
-                    status: 'Open',
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                window.location.href = '/issue-details.html?id=' + data.id;
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        fetch('/api/issue', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title, description }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = `/issue-details.html?id=${data.id}`;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
         });
-    </script>
+    }
+</script>
 </body>
 </html>
