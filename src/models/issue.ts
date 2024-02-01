@@ -1,16 +1,24 @@
-// src/models/issue.ts
-import mongoose from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
-const issueSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  title: String,
-  description: String,
-  status: {
-    type: String,
-    enum: ['Open', 'In Progress', 'Closed']
-  },
-  creator: String,
-  assignee: String
+// Define IssueSchema
+const IssueSchema = new Schema({
+  _id: { type: Number, required: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  status: { type: String, required: true },
+  creator: { type: String, required: true },
+  assignee: { type: String, required: true }
 });
 
-export default mongoose.model('Issue', issueSchema);
+// Define IIssue interface
+export interface IIssue extends Document {
+  _id: number;
+  title: string;
+  description: string;
+  status: string;
+  creator: string;
+  assignee: string;
+}
+
+// Create Issue model
+export const Issue = mongoose.model<IIssue>('Issue', IssueSchema);

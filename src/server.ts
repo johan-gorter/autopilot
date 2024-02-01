@@ -4,6 +4,7 @@ import passport from 'passport';
 import path from 'path';
 
 import commentsRouter from './routes/comment';
+import { issueRouter } from './routes/issue';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(commentsRouter);
+app.use(issueRouter);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '../public')));

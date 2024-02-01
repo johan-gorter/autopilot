@@ -1,43 +1,70 @@
+// src/routes/issue.ts
+
 import express from 'express';
-import { body, validationResult } from 'express-validator';
 import mongoose from 'mongoose';
-import Issue from '../models/issue';
+import { body, validationResult } from 'express-validator';
+import { Issue } from '../models/issue';
+import Counter from '../models/counter';
 
 const router = express.Router();
 
-// Create a new issue
-router.post('/api/issue', [
-  body('title').isString(),
-  body('description').isString(),
-  body('status').isIn(['Open', 'In Progress', 'Closed']),
-  body('creator').isString(),
-  body('assignee').isString(),
-], async (req: any, res: any) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+router.get('/api/issue', async (req, res) => {
+    const query = Issue.find();
 
-  const { title, description, status, creator, assignee } = req.body;
+    if (req.query.search) {
+        query.where({ $text: { $search: req.query.search } });
+    }
 
-  try {
-    const issue = new Issue({
-      _id: new mongoose.Types.ObjectId(),
-      title,
-      description,
-      status,
-      creator,
-      assignee
-    });
+    if (req.query.status) {
+        query.where('status').equals(req.query.status);
+    }
 
-    await issue.save();
+    if (req.query.assignedTo) {
+        query.where('assignee').equals(req.query.assignedTo);
+    }
 
-    res.status(201).json(issue);
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
-  }
+    const issues = await query.exec();
+    res.json(issues);
 });
 
-// Other endpoints (GET, PUT, DELETE) go here
+router.post('/api/issue',
+    body('title').notEmpty(),
+    body('description').notEmpty(),
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
 
-export default router;
+        const counter = await Counter.findByIdAndUpdate({ _id: 'issue_id' }, { $inc: { seq: 1 } }, { new: true, upsert: true });
+        const issue = new Issue({ _id: counter.seq, ...req.body });
+        await issue.save();
+
+        res.status(201).json(issue);
+    }
+);
+
+router.delete('/api/issue/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const issue = await Issue.findById(id);
+  if (!issue) {
+    return res.status(404).send('Issue not found');
+  }
+
+  await issue.deleteOne();
+  res.status(204).send();
+});
+
+router.get('/api/issue/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const issue = await Issue.findById(id);
+  if (!issue) {
+      return res.status(404).send('Issue not found');
+  }
+
+  res.json(issue);
+});
+
+export { router as issueRouter };

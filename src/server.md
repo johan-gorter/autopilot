@@ -3,6 +3,9 @@
 The server for our web application uses NodeJS with Typescript and express to provide a REST API for the client. The server also connects to a MongoDB database to store and retrieve data using mongoose. We also use express-validator to validate requests. We use Jest to test our application. Passport is the library used to authenticate users using a username and password. Users can also sign up by providing a unique username and password.
 
 Files for the browser are served using express.static. Urls for pages all end with .html (example: login.html, sign-up.html).
+We use strict Typescript with es6 module syntax, so use export declarations like `export const` and `export interface`.
+Mongoose model files export a model using names like Comment and User along with a typescript interface prefixed with an I like IComment and IUser.
+Feel free to use `any` if you are not sure about the type of a parameter.
 
 # Sitemap
 .

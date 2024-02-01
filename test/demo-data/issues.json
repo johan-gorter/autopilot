@@ -1,0 +1,27 @@
+[
+    {
+        "_id": 1,
+        "title": "Error in tax calculation",
+        "description": "The application is not calculating the tax correctly for certain income brackets.",
+        "status": "Open",
+        "creator": "JohnDoe",
+        "assignee": "JaneDoe",
+        "comments": []
+    },
+    {
+        "_id": 2,
+        "title": "UI glitch in form submission",
+        "description": "The submit button on the form is not visible on smaller screens.",
+        "status": "In Progress",
+        "creator": "JaneDoe",
+        "assignee": "JohnDoe"
+    },
+    {
+        "_id": 3,
+        "title": "Slow response times",
+        "description": "The application is responding slowly when multiple users are logged in.",
+        "status": "Open",
+        "creator": "JohnDoe",
+        "assignee": "JaneDoe"
+    }
+]

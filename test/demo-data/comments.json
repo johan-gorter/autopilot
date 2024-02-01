@@ -1,0 +1,23 @@
+[
+    {
+        "_id": "60d5ecb8b392d78866aefb99",
+        "issueId": 2,
+        "username": "JohnDoe",
+        "commentText": "Working on this issue.",
+        "postedAt": "2022-01-02T00:00:00Z"
+    },
+    {
+        "_id": "60d5ecb8b392d78866aefb98",
+        "issueId": 3,
+        "username": "JaneDoe",
+        "commentText": "Noted. Will look into this.",
+        "postedAt": "2022-01-03T00:00:00Z"
+    },
+    {
+        "_id": "60d5ecb8b392d78866aefb97",
+        "issueId": 3,
+        "username": "JohnDoe",
+        "commentText": "This issue is critical for our peak usage times.",
+        "postedAt": "2022-01-03T01:00:00Z"
+    }
+]

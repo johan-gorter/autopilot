@@ -1,9 +1,41 @@
 openapi: 3.0.0
 info:
-  title: Issue Management System API
+  title: Issue Management API
   version: 1.0.0
 paths:
   /api/issue:
+    get:
+      summary: Get a list of issues
+      parameters:
+        - name: search
+          in: query
+          description: Search query
+          required: false
+          schema:
+            type: string
+            maxLength: 100
+        - name: status
+          in: query
+          description: Filter by status
+          required: false
+          schema:
+            type: string
+            enum: [Open, In Progress, Closed]
+        - name: assignedTo
+          in: query
+          description: Filter by assigned user
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of issues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Issue'
     post:
       summary: Create a new issue
       requestBody:
@@ -14,51 +46,23 @@ paths:
               $ref: '#/components/schemas/Issue'
       responses:
         '201':
-          description: Issue created
+          description: The created issue
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Issue'
-    get:
-      summary: Get a list of issues
-      parameters:
-        - in: query
-          name: search
-          schema:
-            type: string
-          description: Search for issues by title
-        - in: query
-          name: status
-          schema:
-            type: string
-            enum: [Open, In Progress, Closed]
-          description: Filter issues by status
-        - in: query
-          name: assignedTo
-          schema:
-            type: string
-          description: Filter issues by assignee
-      responses:
-        '200':
-          description: A list of issues
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Issue'
   /api/issue/{id}:
     get:
       summary: Get a specific issue
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
           required: true
           schema:
             type: integer
       responses:
         '200':
-          description: A specific issue
+          description: The requested issue
           content:
             application/json:
               schema:
@@ -66,8 +70,8 @@ paths:
     put:
       summary: Update a specific issue
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
           required: true
           schema:
             type: integer
@@ -79,7 +83,7 @@ paths:
               $ref: '#/components/schemas/Issue'
       responses:
         '200':
-          description: Issue updated
+          description: The updated issue
           content:
             application/json:
               schema:
@@ -87,40 +91,14 @@ paths:
     delete:
       summary: Delete a specific issue
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
           required: true
           schema:
             type: integer
       responses:
         '204':
-          description: Issue deleted
-  /api/issue/{id}/status:
-    put:
-      summary: Change the status of a specific issue
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  enum: [Open, In Progress, Closed]
-      responses:
-        '200':
-          description: Status updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Issue'
+          description: The issue was deleted
 components:
   schemas:
     Issue:
@@ -130,23 +108,14 @@ components:
           type: integer
         title:
           type: string
+          maxLength: 100
         description:
           type: string
         status:
           type: string
           enum: [Open, In Progress, Closed]
-        creator:
+        assignedTo:
           type: string
-        assignee:
-          type: string
-    Comment:
-      type: object
-      properties:
-        id:
-          type: integer
-        text:
-          type: string
-        issueId:
-          type: integer
-        commenter:
-          type: string
+      required:
+        - title
+        - description

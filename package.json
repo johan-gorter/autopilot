@@ -29,6 +29,7 @@
   },
   "scripts": {
     "start": "nodemon --watch src/**/*.ts --exec ts-node src/server.ts",
+    "seed-demo-data": "ts-node scripts/seed-demo-data.ts",
     "test": "jest"
   }
 }
