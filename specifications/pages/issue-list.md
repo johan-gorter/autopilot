@@ -22,12 +22,12 @@ The Issues List Page is divided into three main sections:
 - **Title**: The title of the issue. Maximum length is 100 characters.
 - **Status**: The current status of the issue. Options are Open, In Progress, and Closed.
 - **Assigned To**: The user who is currently assigned to the issue. This field is editable only by admins.
-- **Actions**: Contains buttons for viewing issue details, editing the issue (only visible to the user who created the issue and admins), and closing the issue (only visible to admins).
+
+When a user clicks on an issue, they are taken to the Issue Details Page for that issue.
 
 ### Pagination Section
 
-- **Page Numbers**: Shows the current page number and total number of pages.
-- **Navigation Buttons**: Allows users to go to the First, Previous, Next, and Last page.
+- **Navigation Buttons**: Allows users to go to the Previous and Next page.
 
 ## Text Labels
 
@@ -35,5 +35,4 @@ The Issues List Page is divided into three main sections:
 - **Search Field Placeholder**: "Search issues..."
 - **Filter Labels**: "Filter by Status", "Filter by Assigned To"
 - **Table Headers**: "Issue ID", "Title", "Status", "Assigned To", "Actions"
-- **Action Buttons**: "View Details", "Edit", "Close"
-- **Pagination Labels**: "First", "Previous", "Next", "Last"
+- **Pagination Labels**: "Previous", "Next"

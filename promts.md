@@ -56,5 +56,7 @@ Create a blank plain template.html page that can be used as a starting point for
 please make the navbar stand out using a background color
 
 ## New issue
-provide client.md issue.yml new-issue.md template.html
+provide client.md issue.yml issue-list.md template.html
 create the new-issue.html page. it contains inline javascript for the client side logic and interacts with the server using /api.
+
+Before creating the issues.html, decide on a concise list of selectors the javascript needs to make the page interactive.
