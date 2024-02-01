@@ -21,4 +21,4 @@ If the user attempts to submit the form without filling all mandatory fields, an
 
 ## Success Handling
 
-Upon successful submission, the user should be redirected to the newly created issue's detail page.
+Upon successful submission, the user should be redirected to issues list page.

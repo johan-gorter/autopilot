@@ -6,8 +6,8 @@ const IssueSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   status: { type: String, required: true },
-  creator: { type: String, required: true },
-  assignee: { type: String, required: true }
+  creator: { type: String, required: false },
+  assignee: { type: String, required: false }
 });
 
 // Define IIssue interface
