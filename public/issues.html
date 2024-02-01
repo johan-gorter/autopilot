@@ -6,140 +6,66 @@
     <title>Issues List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+    <script src="issues.js"></script>
 </head>
 <body>
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="/index.html">
-                Home
-            </a>
+            <a class="navbar-item" href="/index.html">Home</a>
         </div>
-
         <div class="navbar-menu">
             <div class="navbar-end">
-                <div hx-get="/partials/user-menu.html" hx-trigger="load" class="navbar-item">
-                </div>
+                <div hx-get="/partials/user-menu.html" hx-trigger="load" class="navbar-item"></div>
             </div>
         </div>
     </nav>
 
     <section class="section">
         <div class="container">
-            <!-- Search and Filter Section -->
-            <div class="field is-grouped">
-                <p class="control is-expanded">
-                    <input class="input" type="text" placeholder="Search issues...">
-                </p>
+            <h1 class="title">Issues List</h1>
+
+            <div class="field">
+                <input id="search-field" class="input" type="text" placeholder="Search issues...">
+            </div>
+
+            <div class="field">
                 <div class="select">
-                    <select>
-                        <option>Filter by Status</option>
-                        <option>Open</option>
-                        <option>In Progress</option>
-                        <option>Closed</option>
-                    </select>
-                </div>
-                <div class="select">
-                    <select>
-                        <option>Filter by Assigned To</option>
-                        <!-- Populate with users -->
+                    <select id="status-filter">
+                        <option value="">Filter by Status</option>
+                        <option value="Open">Open</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Closed">Closed</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Issues List Section -->
-            <table class="table is-fullwidth">
+            <div class="field">
+                <div class="select">
+                    <select id="assigned-filter">
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+
+            <table id="issues-table" class="table is-fullwidth">
                 <thead>
                     <tr>
                         <th>Issue ID</th>
                         <th>Title</th>
                         <th>Status</th>
                         <th>Assigned To</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Populate with issues -->
+                    <!-- Issue rows will be populated dynamically -->
                 </tbody>
             </table>
 
-            <!-- Pagination Section -->
             <nav class="pagination" role="navigation" aria-label="pagination">
-                <a class="pagination-previous">Previous</a>
-                <a class="pagination-next">Next</a>
-                <ul class="pagination-list">
-                    <!-- Populate with page numbers -->
-                </ul>
+                <a id="prev-page" class="pagination-previous">Previous</a>
+                <a id="next-page" class="pagination-next">Next</a>
             </nav>
         </div>
     </section>
-
-    <script>
-        // JavaScript to fetch issues and handle search, filter, and pagination
-        let issues = [];
-let currentPage = 1;
-let issuesPerPage = 10;
-let totalPages = 1;
-let searchTerm = '';
-let statusFilter = '';
-let assignedToFilter = '';
-
-async function fetchIssues() {
-    const response = await fetch(`/api/issue?search=${searchTerm}&status=${statusFilter}&assignedTo=${assignedToFilter}`);
-    issues = await response.json();
-    totalPages = Math.ceil(issues.length / issuesPerPage);
-    updateTable();
-    updatePagination();
-}
-
-function updateTable() {
-    const tableBody = document.querySelector('tbody');
-    tableBody.innerHTML = '';
-    const start = (currentPage - 1) * issuesPerPage;
-    const end = start + issuesPerPage;
-    for (let i = start; i < end && i < issues.length; i++) {
-        const issue = issues[i];
-        const row = document.createElement('tr');
-        // Populate row with issue data
-        tableBody.appendChild(row);
-    }
-}
-
-function updatePagination() {
-    const paginationList = document.querySelector('.pagination-list');
-    paginationList.innerHTML = '';
-    for (let i = 1; i <= totalPages; i++) {
-        const listItem = document.createElement('li');
-        // Populate listItem with page number
-        paginationList.appendChild(listItem);
-    }
-}
-
-function onSearch(event) {
-    searchTerm = event.target.value;
-    fetchIssues();
-}
-
-function onFilter(event) {
-    if (event.target.name === 'status') {
-        statusFilter = event.target.value;
-    } else if (event.target.name === 'assignedTo') {
-        assignedToFilter = event.target.value;
-    }
-    fetchIssues();
-}
-
-function onPageChange(event) {
-    currentPage = parseInt(event.target.textContent);
-    updateTable();
-}
-
-// Add event listeners to inputs, buttons, and table
-document.querySelector('.input').addEventListener('input', onSearch);
-document.querySelectorAll('.select select').forEach(select => select.addEventListener('change', onFilter));
-document.querySelector('.pagination').addEventListener('click', onPageChange);
-
-// Fetch initial issues
-fetchIssues();
-    </script>
 </body>
 </html>

@@ -59,4 +59,14 @@ please make the navbar stand out using a background color
 provide client.md issue.yml issue-list.md template.html
 create the new-issue.html page. it contains inline javascript for the client side logic and interacts with the server using /api.
 
+## Issues
+provide client.md issue.yml issue-list.md template.html
+
+### Issues.html
 Before creating the issues.html, decide on a concise list of selectors the javascript needs to make the page interactive.
+
+Create the issues.html page using these selectors.
+
+### Issues.js
+provide client.md issue.yml issue-list.md issues.html
+Create the javascript for this page. Start by describing the global variables that hold state, then describe in pseudo-code the functions that are needed, how they are triggered and how they change html and how they interact with the api. Finally write implement the javascript using information from the html.

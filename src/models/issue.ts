@@ -10,6 +10,9 @@ const IssueSchema = new Schema({
   assignee: { type: String, required: false }
 });
 
+// Add text index to title
+IssueSchema.index({ title: 'text' });
+
 // Define IIssue interface
 export interface IIssue extends Document {
   _id: number;
