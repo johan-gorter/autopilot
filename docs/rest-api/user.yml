@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: Issue Management System API
+  version: 1.0.0
+paths:
+  /login:
+    post:
+      summary: Login to the system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: Session cookie set upon successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Invalid username or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /signup:
+    post:
+      summary: Sign up for a new account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Account created successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: Session cookie set upon successful account creation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Username already taken or password does not meet requirements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
