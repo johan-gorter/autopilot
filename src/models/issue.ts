@@ -12,6 +12,7 @@ const IssueSchema = new Schema({
 
 // Add text index to title
 IssueSchema.index({ title: 'text' });
+IssueSchema.index({ title: 'asc' });
 
 // Define IIssue interface
 export interface IIssue extends Document {

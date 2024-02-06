@@ -12,7 +12,7 @@ router.get('/api/issue', async (req, res) => {
     const query = Issue.find();
 
     if (req.query.search) {
-        query.where({ $text: { $search: req.query.search } });
+        query.where({$or: [{ $text: { $search: req.query.search } }, { title: { $regex: req.query.search, $options: 'i' } }]});
     }
 
     if (req.query.status) {

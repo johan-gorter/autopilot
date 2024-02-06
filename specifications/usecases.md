@@ -1,3 +1,7 @@
+# Issue management system
+
+This is an issue management system where users can create new issues, comment on issues and change the status of issues.
+
 # Use cases
 
 1. As a `User`, I want to `create a new issue` so that I can `report a problem or request a feature`.

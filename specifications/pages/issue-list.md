@@ -4,7 +4,7 @@
 
 The Issues List Page is divided into three main sections:
 
-1. **Search and Filter Section**: This section is located at the top of the page and allows users to search for specific issues and filter issues based on certain criteria.
+1. **Search and Filter Section**: This section is located at the top of the page and allows users to search for specific issues and filter issues based on certain criteria. A button to create a new issue is also located in this section. The section should take up as little space as possible.
 
 2. **Issues List Section**: This section displays a list of issues. Each issue is represented as a row in a table. The table has the following columns: Issue ID, Title, Status, Assigned To, and Actions.
 
@@ -16,14 +16,14 @@ The Issues List Page is divided into three main sections:
 
 - **Search Field**: Allows users to enter a search query. Maximum length is 100 characters.
 - **Filter Dropdowns**: Allows users to filter issues based on Status (Open, In Progress, Closed) and Assigned To (list of users).
+- **Create issue**: A button that leads to the [create issue page](create-issue.md).
 
 ### Issues List Section
 
 - **Title**: The title of the issue. Maximum length is 100 characters.
 - **Status**: The current status of the issue. Options are Open, In Progress, and Closed.
-- **Assigned To**: The user who is currently assigned to the issue. This field is editable only by admins.
 
-When a user clicks on an issue, they are taken to the Issue Details Page for that issue.
+When a user clicks on an issue, they are taken to the [Issue Details Page](issue-details.md) for that issue.
 
 ### Pagination Section
 
