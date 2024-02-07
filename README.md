@@ -14,13 +14,54 @@ A formal mongodb json schema is an option, but if we want devops engineers to be
 
 ### Comment document structure
 Let's start with the describing the mongodb document used for comments.
-We proceed as follows: We start a new chat window with copilot chat and copy-paste the contents of all specification documents that are relevant. In this case we add the contents of `specifications/readme.md` and `specifications/pages/issue-details.md`. After this we add the following prompt:
+We proceed as follows: We start a new chat window with **copilot chat** and copy-paste the contents of all files that are relevant. In this case we add the contents of `specifications/readme.md` and `specifications/pages/issue-details.md`. After this we add the following prompt:
 ```markdown
-Create a concise markdown document that describes our how comment documents in mongodb are structured.
+Create a concise markdown document that describes how documents in mongodb are structured for comments.
 ```
 And voila, copilot chat creates a nice document for us that we can store under `docs/database/comment.md`, so we can use it for our next prompts.
 ```markdown
+You are writing technical documentation for our web application to use as reference. You create short concise markdown documents that define how each document in mongodb is structured. You define fields, relations and indices. You use links to other documents like this: [user](user.md), [issue](issue.md), etcetera..
 
+Create the document structure for comment.
+```
+It took me a few tries to get this prompt right, but the result is exactly what we need: 
+```markdown
+# Comment Document
+
+The `Comment` document is used to store information about comments made on issues in the issue management system. Each comment is associated with a specific issue and user.
+
+## Fields
+
+- `_id`: ObjectId - The unique identifier for the comment.
+- `issueId`: Integer - The identifier of the issue that the comment is associated with. This field is a reference to the [Issue](issue.md) document.
+- `userId`: ObjectId - The identifier of the user who made the comment. This field is a reference to the [User](user.md) document.
+- `text`: String - The text of the comment. This field has a maximum length of 500 characters.
+- `createdAt`: Date - The date and time when the comment was created.
+
+## Relations
+
+- `issueId`: Each comment is associated with one issue. The `issueId` field is a foreign key that references the `_id` field in the [Issue](issue.md) document.
+- `userId`: Each comment is made by one user. The `userId` field is a foreign key that references the `_id` field in the [User](user.md) document.
+
+## Indices
+
+- A compound index on `issueId` and `createdAt` fields for efficient retrieval of comments for a specific issue sorted by creation date.
+
+```markdown
+## Example Document
+
+```json
+{
+    "_id": ObjectId("60d5ec9af682fbd12a892fe0"),
+    "issueId": 1,
+    "userId": ObjectId("60d5ec9af682fbd12a892fd7"),
+    "text": "This is a comment on the issue.",
+    "createdAt": ISODate("2021-06-25T12:00:00Z")
+}
+```
+```
+
+This document structure allows the application to store and retrieve comments for issues, and to display the comments in the order they were made. The `issueId` and `userId` fields enable the application to link comments to the relevant issues and users.
 ```
 
 This is the part of the specifications that describes the data model and the API. 
