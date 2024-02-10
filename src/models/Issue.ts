@@ -16,7 +16,7 @@ const IssueSchema = new Schema<IIssue>({
   title: { type: String, required: true, maxlength: 100 },  //NEWLINE
   description: { type: String, required: true },  //NEWLINE
   status: { type: String, required: true, enum: ['Open', 'In Progress', 'Closed'] },  //NEWLINE
-  creatorId: { type: Schema.ObjectId, required: true, ref: 'User' },  //NEWLINE
+  creatorId: { type: Schema.ObjectId, ref: 'User' },  //NEWLINE
   assigneeId: { type: Schema.ObjectId, ref: 'User' }  //NEWLINE
 });
 

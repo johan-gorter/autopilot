@@ -12,7 +12,7 @@ async function getNextIssueId() {
         { $inc: { seq: 1 } },
         { returnOriginal: false } as any
     );
-    return counter.value.seq;
+    return counter.seq;
 }
 
 // GET /api/issue

@@ -1179,9 +1179,79 @@ but we did not specify how to handle errors in `docs/client.md`.
 </html>
 ````
 
-Submitting the form now fails, because there is no user logged in yet, but after we comment out the validation in `routes/issue.ts` 
-new issues are actually submitted.
+Submitting the form now fails, because there is no user logged in yet, so we comment out the validation in `routes/issue.ts` and make remove the required from the `creatorId`. The next problem we encounterd is the line `return counter.seq;` which had to be `return counter.seq;`.
+After fixing this, the create-page works 🥳.
 
 We continue by creating the `issue-list.html` page. We start a new chat window, add the files `docs/client.md`, `public/template.html` (in an html snippet), `docs/api/issue.yml` (in a yaml snippet), `specifications/pages/issue-list.md` and add the following prompt:
 
 ````markdown
+````
+
+## Conclusions
+
+From what we have seen thusfar, we expect copilot chat can complete the
+rest of the web application without any new kind of problems, so I think it
+is time to summarize what we have learned thusfar from this experiment.
+
+First of all, github copilot is capable of much more than it currently advertises.
+Currently, it is fully capable of creating a whole web application, 
+--> Promotion to autopilot
+
+but it still needs a software engineer to write promts and review the code. 
+I am even afraid that without an experienced software engineer, the code will contain
+bugs like race conditions and even security vulnerabilities.
+To give one example, in the web application we just created, 
+when we browse to `/api/comment?issueId=a`, the whole server crashes.
+
+So how do we design our web applications to be able to use copilot chat as an autopilot?
+From what we have seen thusfar...
+Using copilot as an autopilot to write most of your code is absolutely doable,
+although it requires more effort in terms of documentation and structuring the code.
+I think the effort is definitely worth it, because software engineers can now
+really be more productive and focus on the more interesting parts of the code.
+Less own abstractions, more repeating yourself.
+
+Explanation: experience, big accurate short-term memory, but no long-term memory.
+
+## Future work
+
+I am very excited about working with copilot chat and discovering the possibilities.
+But my time is limited, so It is time for others to dive in. There is much left to be discovered,
+so I am opening up this repository for public contributions. Feel free to make pull requests and
+start discussions on the issues page. I am especially curious about:
+
+ - What is a good format for the specifications, so for example we can express the UI better?
+ - How well can copilot chat make unit tests and end-to-end tests based on the specifications?
+ - What tools and libraries work well on the server?
+ - What frameworks and css work well in the client?
+
+Thanks for reading this blog all the way to the end, I was unable to make it any shorter, so I hope you found it interesting.
+I hope to see you soon on the issues page.
+
+## (Un)license
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
+
