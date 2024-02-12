@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issues List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.html">
+                Home
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <div hx-get="partials/user-menu.html" hx-trigger="load" class="navbar-item">
+                    <!-- User menu will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+            <h1 class="title">Issues List</h1>
+
+            <div class="field is-grouped">
+                <p class="control is-expanded">
+                    <input class="input" type="text" id="search-field" placeholder="Search issues...">
+                </p>
+                <p class="control">
+                    <div class="select">
+                        <select id="status-filter">
+                            <option value="">Filter by Status</option>
+                            <option value="Open">Open</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+                </p>
+                <p class="control">
+                    <div class="select">
+                        <select id="assigned-to-filter">
+                            <option value="">Filter by Assignee</option>
+                            <!-- User options will be loaded here -->
+                        </select>
+                    </div>
+                </p>
+                <p class="control">
+                    <a class="button is-primary" id="create-issue-button" href="create-issue.html">Create Issue</a>
+                </p>
+            </div>
+
+            <table class="table is-fullwidth" id="issues-list-table">
+                <thead>
+                    <tr>
+                        <th>Issue ID</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Assigned To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Issue rows will be loaded here -->
+                </tbody>
+            </table>
+
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <a class="pagination-previous" id="previous-page-button">Previous</a>
+                <a class="pagination-next" id="next-page-button">Next</a>
+            </nav>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+    <script src="js/issue-list.js" type="module"></script>
+</body>
+</html>
