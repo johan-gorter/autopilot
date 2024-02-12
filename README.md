@@ -1,7 +1,7 @@
 # AI Generated issue management system
 
 Will AI replace software developers? Can AI already create a complete web application?
-We created this experiment to find out, to give you a spoiler, this is the working result:
+We created this experiment to find out, to give you a spoiler, this is a screenshot:
 
 ![Screenshot of issue management system](blog/images/screenshot-list.png)
 
@@ -41,7 +41,7 @@ You use links to other documents like this: [user](user.md), [issue](issue.md), 
 Create the documentation for comment documents.
 ```
 
-And voila, copilot chat creates a nice document for us that we can store under `docs/database/comment.md`, it is a nice reference document for humans, but it is also perfect for our next prompts.
+And voila, copilot chat creates a nice document for us that we can store under `docs/database/comment.md`, it is a good reference document for humans, but it is also used as input for our next prompts.
 
 ````markdown
 # Comment Document
@@ -88,7 +88,10 @@ We also want this document to describe how to increment the id.
 So once more we start a clean chat window, paste the files `specifications/readme.md`, `specifications/pages/issue-details.md` and `docs/database/comment` add the prompt:
 
 ```markdown
-You are writing technical documentation for our web application to use as reference. You create short concise markdown documents that define how each document in mongodb is structured. You define fields, relations and custom indices. You use links to other documents like this: [user](user.md), [issue](issue.md), etcetera. Do not use nested markdown snippets.
+You are writing technical documentation for our web application to use as reference.
+You create short concise markdown documents that define how each document in mongodb is structured. 
+You define fields, relations and custom indices.
+You use links to other documents like this: [user](user.md), [issue](issue.md), etcetera. 
 
 Create the documentation for issues.
 ```
@@ -138,10 +141,14 @@ The issue document is used to store issues reported by users. Each issue is asso
 I hoped the document would also include instructions on how to increment the id. My first attempt was to add `include instructions on how to determine the next _id` to the prompt. This worked perfectly a week ago in an earlier attempt, 
 but somehow today it came up with a naive implementation of taking the maximum id and adding 1. 
 This is a bad idea, as it leads to duplicate ids in race conditions and reuse of ids of deleted issues. This made me realize that I should stick to the approach of splitting up
-everything into small files. Therefore I had **copilot chat** create a separate document for the issue-id using the following prompt:
+everything into small files. Therefore I had **copilot chat** create a separate document describing
+how to determine the next issue-id using the following prompt:
     
 ````markdown
-You are writing technical documentation for our web application to use as reference. You create short concise markdown documents that define how each document in mongodb is structured. You define fields, relations and indices. You use links to other documents like this: [user](user.md), [issue](issue.md), etcetera.
+You are writing technical documentation for our web application to use as reference.
+You create short concise markdown documents that define how each document in mongodb is structured.
+You define fields, relations and indices.
+You use links to other documents like this: [user](user.md), [issue](issue.md), etcetera.
 
 Create the documentation for determining the next _id for issues.
 ````
@@ -211,18 +218,18 @@ This example represents the `counters` document for issue `id` generation. The `
 ### Comment API
 We skip the other database documents for now and move on to something else interesting. 
 In this experiment we are going to use a REST API between the browser and the server.
-We will use formal openAPI specification documents to describe the API. 
+We will use formal openAPI specification documents to describe this API. 
 These documents will be used by both the server and the client code. 
 We start by creating a prompt for the comment API. 
-We add the files `specifications/readme.md`, `specifications/pages/issue-details.md` and `docs/database/comment.md` to the chat window and add the following prompt:
+We add the files `specifications/readme.md`, `specifications/pages/issue-details.md` and `docs/database/comment.md` to a new chat window and add the following prompt:
 
 ````markdown
-Create the openapi document describing comment endpoints on /api/comment that these pages need to do queries and updates.
-Include details like maximum field lengths and query parameters. 
+Create the openapi document describing comment endpoints on /api/comment that these pages need 
+to do queries and updates. Include details like maximum field lengths and query parameters. 
 Use the same names for fields as in the mongodb document, including the _id (ObjectId).
 ````
 
-The response is a beautiful openapi document that we save to `docs/api/comment.yaml`.
+The response is an openapi document that we save to `docs/api/comment.yaml`.
 
 ````yaml
 openapi: 3.0.0
@@ -300,7 +307,8 @@ We use a new chat window and add the contents of `specifications/readme.md`,
 
 
 ````markdown
-Create a list of endpoints on /api/issue that these pages need to do queries and updates. Assume that there are already separate endpoints for all other collections.
+Create a list of endpoints on /api/issue that these pages need to do queries and updates. 
+Assume that there are already separate endpoints for all other collections.
 ````
 
 The response tells us the endpoints that we will need:
@@ -497,11 +505,18 @@ The tools we want to be using are described by the following document that we sa
 ````markdown
 # Server
 
-The server for our web application uses NodeJS with Typescript and express to provide a REST API for the client. The server also connects to a MongoDB database to store and retrieve data using mongoose. We also use express-validator to validate requests. We use Jest to test our application. Passport is the library used to authenticate users using a username and password. Users can also sign up by providing a unique username and password.
+The server for our web application uses NodeJS with Typescript and express to provide a REST API for
+the client. The server also connects to a MongoDB database to store and retrieve data using mongoose.
+We also use express-validator to validate requests. We use Jest to test our application.
+Passport is the library used to authenticate users using a username and password.
+Users can also sign up by providing a unique username and password.
 
-Files for the browser are served using express.static. Urls for pages all end with .html (example: login.html, sign-up.html).
-We use strict Typescript with es6 module syntax, so use export declarations like `export const` and `export interface`, but do not use `export default`.
-Mongoose model files export a model using names like Comment and User along with a typescript interface prefixed with an I like IComment and IUser.
+Files for the browser are served using express.static. Urls for pages all end with .html 
+(example: login.html, sign-up.html).
+We use strict Typescript with es6 module syntax, so use export declarations like `export const`
+and `export interface`, but do not use `export default`.
+Mongoose model files export a model using names like Comment and User along with a Typescript
+interface prefixed with an I like IComment and IUser.
 ````
 
 The next step we want is a sitemap to describe the folder structure and some main files for our web application. This is done by providing `docs/server.md` and adding the following prompt:
@@ -556,7 +571,7 @@ Here's a sitemap for your application:
 This is a general structure and may vary based on your specific application needs. The `...` indicates that there may be other files or directories in that location.
 ````
 
-Creating these folders by hand is a bit time-consuming, so we ask copilot chat to give us the commands to create the folders mentioned in the sitemap. This time we reuse the chat window and continue the conversation with.
+Creating these folders by hand is a little bit time-consuming, so we ask copilot chat to give us the commands to create the folders mentioned in the sitemap. This time we reuse the chat window and continue the conversation with.
 
 ````markdown
 Give me the commands to create the folders mentioned in the sitemap.
@@ -627,7 +642,8 @@ write a concise .gitignore file for this application
 Now we can finally create the first bit of code that actually runs. We start a new chat window, copy-paste `docs/server.md` and add the following prompt:
 
 ````markdown
-Create the content of src/server.ts with the specified authentication, middlewares, static file serving and a placeholder where to add routes later.
+Create the content of src/server.ts with the specified authentication, middlewares, 
+static file serving and a placeholder where to add routes later.
 ````
 
 The response is a good starting point that we can save to `src/server.ts`.
@@ -750,7 +766,8 @@ export const Comment = mongoose.model<IComment>('Comment', CommentSchema);
 Now we start a new chat with the same files, add the newly created `src/models/Comment.ts` and add the following prompt:
 
 ````markdown
-Give me the complete files with the implementation of this endpoint and the code to add to server.ts to register it.
+Give me the complete files with the implementation of this endpoint 
+and the code to add to server.ts to register it.
 ````
 
 The response tells us exactly what we need to do:
@@ -828,7 +845,8 @@ After verifying that /api/comment?issueId=1 returns the empty array we expected,
 The model is generated using the same technique. We start a new chat window, add the files `docs/readme.md`, `docs/server.md`, `docs/database/issue.md` and `docs/api/issue.yaml` (enclosed in a `yaml` snippet) and add the following prompt:
 
 ````markdown
-Implement the mongoose schema and interface for issue. Include indices. End every line of code with //NEWLINE
+Implement the mongoose schema and interface for issue. Include indices. 
+End every line of code with //NEWLINE
 ````
 
 Copilot chat complained that the code it generated matched publicly available code and blocked the output, 
@@ -877,10 +895,11 @@ to make the code compile, but that was all.
 For creating the **GET issue** route, we need to supply the files `docs/readme.md`, `docs/server.md`, `docs/database/issue.md`, `docs/api/issue/get.yaml` (enclosed in a `yaml` snippet) and the newly generated `src/models/Issue.ts` (enclosed in a `ts` snippet)
 
 ```markdown
-Give me the complete files with the implementation of this endpoint and the code to add to server.ts to register it.
+Give me the complete files with the implementation of this endpoint 
+and the code to add to server.ts to register it.
 ```
 
-Then this end result came out:
+Then this result came out:
 
 ````typescript
 import express from 'express';
@@ -915,7 +934,8 @@ router.get('/api/issue', async (req, res) => {
 export default router;
 ````
 
-The Typescript did not compile, I had to replace `Partial<IIssue>` with `any`, but then the code works fine.
+The Typescript did not compile, I had to replace `Partial<IIssue>` with `any`, 
+but then the code worked fine.
 I forgot to ask for request validation, so when I continued the chat with:
 
 ````markdown
@@ -999,8 +1019,9 @@ router.get('/api/issue', validationSchema, async (req, res) => {
 export default router;
 ````
 
-I retried creating the route with validation in just one prompt, but then it started to leave out important details. 
-So creating files incrementally seems like a good approach.
+I retried creating the route with validation using just one prompt, 
+but then it started to leave out important details.
+So the lesson we learned here is that creating files incrementally is actually a good approach.
 
 For creating the **POST issue** route, we need to supply the files `docs/readme.md`, `docs/server.md`, `docs/database/issue.md`, , `docs/database/issue-next-id.md`, `docs/api/issue/post.yaml` (enclosed in a `yaml` snippet) and `src/models/Issue.ts` (enclosed in a `ts` snippet).
 
@@ -1042,10 +1063,10 @@ router.post('/api/issue', [
 export { router as issueRouter };
 ````
 
-We merged this contents with the `src/routes/issue.ts` file and cleared `creatorId` for now. 
-But there is something funny here,
+We merged this contents with the `src/routes/issue.ts` file and removed the `creatorId` line for now. 
+Note that there is something funny here,
 Copilot chat decided that we should put the next id generation into a separate utility file.
-This is actually not a bad idea, so let's do this.
+This is actually not a bad idea, so let's go ahead and do this.
 We reuse the chat window to ask for the implementation using the prompt:
 
 ````markdown
@@ -1076,22 +1097,24 @@ Also the `counter.value.seq` needs to be `counter.seq`, so we corrected this.
 Before moving on to the client we add some demo data to the database. We let copilot chat generate the code for this. In the following prompt we provide `docs/server.md`, `docs/database/comment.md`, `docs/database/issue.md`, `src/models/Comment.ts` and `src/models/Issue.ts` and add the following prompt:
 
 ````markdown
-Create a Typescript script that adds 2 issues containing 2 comments each to the database using the mongoose schemas above. Hardcode all user ids with the same value for now. Make realistic issues about a fictional government tax application web application.
+Create a Typescript script that adds 2 issues containing 2 comments each to the database 
+using the mongoose schemas above. Hardcode all user ids with the same value for now. 
+Make realistic issues about a fictional government tax application web application.
 ````
 
-I have omitted the result here, but after fixing a few Typescript issues, the script worked as expected and added the demo data to the database.
+I have omitted the result here, but after fixing a few Typescript issues, the script worked as expected and added the demo data to the database. I also let Copilot chat create a script to initialize the counter. These scripts can be found in the `scripts` folder.
 
 ## Phase 3: The client
 
 Before starting to generate the client, we need to decide which tools and libraries we want to use.
 If you want to experiment with different technologies, you can checkout the `server` branch and start from there.
-First a question. Do we actually need a developer friendly framework when copilot chat writes all the code for us?
+First a question. Do we actually need a developer friendly framework when Copilot chat writes all the code for us?
 In this experiment we try to keep things as simple as possible, but according to our philosoply,
 we must still be able to split up everything into small files. 
 So I choose `htmx` as a simple library with the ability to load partial pages, 
 while still being close to the plain HTML that copilot chat is familiar with.
 For the CSS framework I experimented with both `bootstrap` and `tailwind`, 
-but it turns out that copilot chat creates a nicer interface out of the box using `Bulma`.
+but it turns out that Copilot chat creates a nicer interface out of the box using `Bulma`.
 I wrote down these decisions in the document `docs/client.md`.
 
 ````markdown
@@ -1110,7 +1133,11 @@ The next step is to create a sitemap to describe the urls for our web applicatio
 This is done by providing `specifications/readme.md`, `docs/client.md` and all `specification/pages/*.md` files and adding the following prompt:
 
 ````markdown
-You are writing technical documentation for our web application to use as reference. You create short concise markdown documents. Create a short "Sitemap" document that contains a list of the html files that we need to fulfill these usecases and specify query-string parameters if applicable. We need it to create the navigation between pages.
+You are writing technical documentation for our web application to use as reference. 
+You create short concise markdown documents. 
+Create a short "Sitemap" document that contains a list of the html files that we need
+to fulfill these usecases and specify query-string parameters if applicable. 
+We need it to create the navigation between pages.
 ````
 
 The response is then added to `docs/client.md` for our next promts.
@@ -1145,15 +1172,15 @@ Here is a list of the HTML files that we need to fulfill the use cases. Each fil
 Please note that the `id` and `username` parameters should be properly URL-encoded to ensure that they can be correctly interpreted by the server.
 ````
 
-Now all we need before creating our first page is a template. We use the following prompt to generate it, while providing only `docs/client.md`:
+Before creating our first page, we create a template. We use the following prompt to generate it, while providing only `docs/client.md`:
   
 ````markdown
-Create a blank plain template.html page that can be used as a starting point for pages like create-issue.html. 
-It includes a navbar with a home link and a lazy loaded user menu. 
+Create a blank plain template.html page that can be used as a starting point for pages like
+create-issue.html. It includes a navbar with a home link and a lazy loaded user menu. 
 There is one placeholder where the main page content can be placed. please make the navbar stand out.
 ````
 
-The response is then added to `public/template.html` for our next promts.
+This is the response:
 
 ````html
 <!DOCTYPE html>
@@ -1190,15 +1217,17 @@ The response is then added to `public/template.html` for our next promts.
 </html>
 ````
 
-This template is looks ok, so let's start by creating the `create-issue.html` page.
+This template is looks ok and we save it to `public/template.html` for our next prompts.
+Let's start by creating the `create-issue.html` page.
 We start a new chat window, add the files `docs/client.md`, `public/template.html` (in an html snippet), `docs/api/issue.yml` (in a yaml snippet), `specifications/pages/create-issue.md` and add the following prompt:
 
 ````markdown
-create the new-issue.html page. it contains inline javascript for the client side logic and interacts with the server using /api.
+create the new-issue.html page. 
+it contains inline javascript for the client side logic and interacts with the server using /api.
 ````
 
 The response is actually pretty good, except that error handling is not implemented, 
-but this may be our fault, since we did not specify how to handle errors in `docs/client.md`.
+but this is actually our fault, since we did not specify how to handle errors in `docs/client.md`.
 
 ````html
 <!DOCTYPE html>
@@ -1284,21 +1313,21 @@ but this may be our fault, since we did not specify how to handle errors in `doc
 </html>
 ````
 
-Because we disabled the `creatorId` in the routing, the page can now succesfully submit new issues 🥳.
+![Screenshot of create issue](blog/images/screenshot-create.png)
 
-We continue by creating the `issue-list.html` page. We start a new chat window, add the files `docs/client.md`, `public/template.html`, `docs/api/issue/get.yml` (in a yaml snippet), `specifications/pages/issue-list.md` and add the following prompt to start with the HTML:
+Because we disabled the `creatorId` in the routing, the page now succesfully creates new issues 🥳.
+
+We continue by creating the `issue-list.html` page. We start a new chat window, add the files `docs/client.md`, `public/template.html`, `docs/api/issue/get.yml` (in a yaml snippet), `specifications/pages/issue-list.md` and add the following prompt:
 
 ````markdown
 Before creating the issue-list.html, decide on a concise list of selectors the javascript needs to make the page interactive.
 ````
 
-The response is a list of selectors. This is merely a note to the next prompt we do in the chat window where, 
-we let Copilot chat create the with the HTML.
-
-````html
+The response is a list of selectors. The response is merely a note that Copilot chat will
+use to answer the next prompt.
 
 ````markdown
-Create the complete issue-list.html page using these selectors. Style the elments using Bulma css.
+Create the complete issue-list.html page using these selectors. Style the elements using Bulma css.
 ````
 
 The result is already good looking.
@@ -1381,13 +1410,13 @@ The result is already good looking.
     </main>
 
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
-    <script src="js/issue-list.js" type="module"></script>
+    <script src="js/issue-list.js"></script>
 </body>
 </html>
 ````
 
 Copilot chat already mentions the javascript file it expects (`js/issue-list.js`) so let's create that.
-Splitting up native javascript in multiple small files is easier when using es6 modules, so we add `type="module"` to the script tag.
+Splitting up native javascript in multiple small files is easier when using es6 modules, so we add `type="module"` to the last script tag.
 (We should probably have mentioned this in the `docs/client.md` document). Now let's see if we can add the javascript to the page.
 
 We start a new chat window, add the files `docs/client.md`, `specifications/pages/issue-list.md`, `docs/api/issue/get.yml` (in a `yaml` snippet) and the new `public/issue-list.html` and add the following prompt:
@@ -1542,9 +1571,16 @@ so I think it is time to summarize what we have learned thusfar from this experi
 First of all, Github copilot is capable of much more than it currently advertises.
 It is definitely fully capable of creating a whole web application, 
 when a software engineer gives the right prompts and reviews code.
-Therefore I think we can now offically promote Copilot chat to the rank of Autopilot.
+Therefore I think we can now offically promote **Copilot chat** to the rank of **Autopilot**.
+```
+             *         ---------------------                          *
+   *                  |                     |        *
+                  *   |      AUTOPILOT      |               *
+        *             |                     |    *
+              *        ---------------------                 *
+```
 
-Having a software engineer write the prompts and review the code is crucial.
+Having a software engineer write the prompts and review the code is still crucial.
 I am even afraid that without an experienced software engineer, the code will contain
 bugs like race conditions and even security vulnerabilities.
 To give one example, in the web application we just created, 
@@ -1553,8 +1589,8 @@ when we browse to `/api/comment?issueId=a`, the whole server crashes.
 So how do we create web applications that enable Copilot chat to be used as an autopilot to create most of the code?
 Let's recap what we have learned:
 
- - We need to create a lot of small files of documentation, so we can provide the right input to Copilot chat.
- - We need to split up the code into small files, so Copilot chat can create it using a single prompt.
+ - We need to create a lot of small files of documentation, in order to provide the right input to Copilot chat.
+ - We need to split up the code into small files, so Copilot chat can create them using a single prompt.
  - We should use existing API's and libraries, and be reluctant to create our own abstractions 
    (like helper functions, baseclasses, custom elements). Repeating yourself is no longer a very big maintenance issue.
 
