@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Issue Management API
+  version: 1.0.0
+paths:
+  /api/issue:
+    get:
+      summary: Get a list of issues
+      description: This endpoint returns a list of issues. You can search for specific issues by title or description, filter issues by status or assigned user, and paginate the results.
+      parameters:
+        - name: search
+          in: query
+          description: Search for issues that contain this query in their title or description. Maximum length is 100 characters.
+          required: false
+          schema:
+            type: string
+            maxLength: 100
+        - name: status
+          in: query
+          description: Filter issues by status. Options are 'Open', 'In Progress', 'Closed'.
+          required: false
+          schema:
+            type: string
+            enum: ['Open', 'In Progress', 'Closed']
+        - name: assignedTo
+          in: query
+          description: Filter issues by the user they are assigned to. This should be the ObjectId of the user.
+          required: false
+          schema:
+            type: string
+            format: ObjectId
+        - name: page
+          in: query
+          description: The page number for pagination. Page numbers start at 1.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: pageSize
+          in: query
+          description: The number of issues to return per page for pagination. Default is 10.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+      responses:
+        '200':
+          description: A list of issues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Issue'
+components:
+  schemas:
+    Issue:
+      type: object
+      properties:
+        _id:
+          type: integer
+          description: The unique identifier for the issue.
+        title:
+          type: string
+          description: The title of the issue.
+        description:
+          type: string
+          description: The description of the issue.
+        status:
+          type: string
+          description: The status of the issue.
+        creatorId:
+          type: string
+          format: ObjectId
+          description: The id of the user who created the issue.
+        assigneeId:
+          type: string
+          format: ObjectId
+          description: The id of the user who is assigned to the issue.

@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  title: Issue Management API
+  version: 1.0.0
+paths:
+  /api/comment:
+    post:
+      summary: Create a new comment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                issueId:
+                  type: integer
+                userId:
+                  type: string
+                  format: uuid
+                text:
+                  type: string
+                  maxLength: 500
+              required:
+                - issueId
+                - userId
+                - text
+      responses:
+        '201':
+          description: Comment created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    format: uuid
+                  issueId:
+                    type: integer
+                  userId:
+                    type: string
+                    format: uuid
+                  text:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+    get:
+      summary: Get comments for an issue
+      parameters:
+        - name: issueId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of comments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      format: uuid
+                    issueId:
+                      type: integer
+                    userId:
+                      type: string
+                      format: uuid
+                    text:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
