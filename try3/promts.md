@@ -48,7 +48,7 @@ Create a script scripts/seed-demo-data.ts that adds the demo data from test/demo
 ## Sitemap in client.md
 provide client.md
 Create a sitemap of urls available in the browser. Add query-string parameters if applicable.
-Put this in a markdown document for reference
+Put this in a markdown document for reference.
 
 ## Template
 Create a blank plain template.html page that can be used as a starting point for pages like create-issue.html. It is styled using bulma. It includes a navbar. htmx loads the user menu. There is one placeholder where the main page content can be placed.

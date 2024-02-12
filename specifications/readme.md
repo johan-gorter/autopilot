@@ -10,4 +10,5 @@ This is an issue management system where users can create new issues, comment on
 
 # Requirements
 Use mongodb to store the data.
-All documents use ObjectId as id, except issues, they have an integer as id that auto increments.
+All documents use ObjectId as id, except issues, they have an integer as id that auto increments. 
+Issue ids are unique and are never reused.
