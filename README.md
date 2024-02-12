@@ -1565,8 +1565,9 @@ export async function getUsers() {
 ## Conclusions
 
 From what we have seen thusfar, we expect Copilot chat can complete the
-rest of the web application without encountering any new kinds of problems, 
-so I think it is time to summarize what we have learned thusfar from this experiment.
+rest of the web application without encountering any new kinds of problems.
+You can checkout the branch `end-of-blog` to see the end result.
+Let's summarize what we have learned thusfar from this experiment.
 
 First of all, Github copilot is capable of much more than it currently advertises.
 It is definitely fully capable of creating a whole web application, 
