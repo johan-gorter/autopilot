@@ -1573,11 +1573,11 @@ It is definitely fully capable of creating a whole web application,
 when a software engineer gives the right prompts and reviews code.
 Therefore I think we can now offically promote **Copilot chat** to the rank of **Autopilot**.
 ```
-             *         ---------------------                          *
-   *                  |                     |        *
-                  *   |      AUTOPILOT      |               *
-        *             |                     |    *
-              *        ---------------------                 *
+                        *         ---------------------                          *
+              *                  |                     |        *
+                             *   |      AUTOPILOT      |               *
+                   *             |                     |    *
+                         *        ---------------------                 *
 ```
 
 Having a software engineer write the prompts and review the code is still crucial.
