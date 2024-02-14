@@ -1587,8 +1587,9 @@ bugs like race conditions and even security vulnerabilities.
 To give one example, in the web application we just created, 
 when we browse to `/api/comment?issueId=a`, the whole server crashes.
 
-So how do we create web applications that enable Copilot chat to be used as an autopilot to create most of the code?
-Let's recap what we have learned:
+
+How can we build web applications that use Copilot chat as an autopilot for generating most of the code? 
+Here's a summary of what we've discovered:
 
  - We need to create a lot of small files of documentation, in order to provide the right input to Copilot chat.
  - We need to split up the code into small files, so Copilot chat can create them using a single prompt.
