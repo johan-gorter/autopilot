@@ -219,7 +219,7 @@ This example represents the `counters` document for issue `id` generation. The `
 We skip the other database documents for now and move on to something else interesting. 
 In this experiment we are going to use a REST API between the browser and the server.
 We will use formal openAPI specification documents to describe this API. 
-These documents will be used by both the server and the client code. 
+These documents will later be used to generate both the server and the client code. 
 We start by creating a prompt for the comment API. 
 We add the files `specifications/readme.md`, `specifications/pages/issue-details.md` and `docs/database/comment.md` to a new chat window and add the following prompt:
 
